@@ -10,23 +10,24 @@ $dogs = [
 
 $dog_statuses = [
   { id: 1, dog_id: 1, text: "Coco wants to go out." },
-  { id: 2, dog_id: 2, text: "Max stole a pizza off the table." },
+  { id: 2, dog_id: 2, text: "Max stole pizza off the kichen table." },
   { id: 3, dog_id: 1, text: "Coco barks at the mailman." }
 ]
 
 class StatusesController < ControllerBase
   def index
-    statuses = $dog_statuses.select do |s|
+    @statuses = $dog_statuses.select do |s|
       s[:dog_id] == Integer(params['dog_id'])
     end
 
-    render_content(statuses.to_json, "application/json")
+    render :index
   end
 end
 
 class DogsController < ControllerBase
   def index
-    render_content($dogs.to_json, "application/json")
+    @dogs = $dogs
+    render :index
   end
 end
 

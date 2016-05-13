@@ -19,7 +19,7 @@ class ControllerBase
   end
 
   def redirect_to(url)
-    res.header["location"] = url
+    res.header["Location"] = url
     res.status = 302
 
     if @already_built_response
@@ -44,10 +44,20 @@ class ControllerBase
   end
 
   def render(template_name)
-    contents = File.read("views/#{self.class.to_s.underscore}/#{template_name}.html.erb")
-    erb_template = ERB.new(contents)
-    render_content(erb_template.result(binding), 'text/html')
-    #NOTE (to self): At this stage, it's only rendering my_controller when you run p03... because that's all that's inside p03!
+    dir_path = File.dirname(__FILE__)
+    template_name = File.join(
+      dir_path,
+      "..",
+      "views",
+      self.class.name.to_s.underscore,
+      "#{template_name}.html.erb"
+    )
+
+    template = File.read(template_name)
+
+    render_content(
+      ERB.new(template).result(binding), "text/html"
+    )
   end
 
   def session
@@ -60,6 +70,6 @@ class ControllerBase
 
   def invoke_action(name)
     self.send(name)
-    render(name.to_sym) unless already_built_response?
+    render(name) unless already_built_response?
   end
 end

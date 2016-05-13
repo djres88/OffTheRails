@@ -1,0 +1,14 @@
+<h1>ALL THE DOGS</h1>
+
+<% if flash[:notice] %>
+  Notice: <%= flash[:notice] %>
+<% end %>
+
+<pre>Dog Data: <%= @dogs %></pre>
+
+Dog Names:
+<ul>
+  <% @dogs.each do |dog| %>
+  <li><a href="/dogs/<%=dog[:id]%>/statuses"><%= dog[:name] %></a></li>
+  <% end %>
+</ul>
