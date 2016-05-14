@@ -29,12 +29,17 @@ class DogsController < ControllerBase
     @dogs = $dogs
     render :index
   end
+
+  #NOTE: You can add new actions here.
 end
+
+# NOTE: you can add new controllers here.
 
 router = Router.new
 router.draw do
   get Regexp.new("^/dogs$"), DogsController, :index
   get Regexp.new("^/dogs/(?<dog_id>\\d+)/statuses$"), StatusesController, :index
+  # NOTE: You can add new routes here.
 end
 
 app = Proc.new do |env|
