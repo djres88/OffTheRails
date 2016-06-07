@@ -1,4 +1,4 @@
-#Rails Lite
+#Off the Rails
 
 ##What It Is
 A working version of Rails' core functionality. You can route and render simple text content locally with help from the `Rack` gem.
